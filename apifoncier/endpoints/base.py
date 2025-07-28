@@ -5,6 +5,9 @@ from tqdm import tqdm
 import geopandas as gpd
 import pandas as pd
 
+from ..validators import validate_code_insee, validate_bbox
+from ..exceptions import ValidationError
+
 
 class BaseEndpoint:
     """
@@ -198,9 +201,83 @@ class BaseEndpoint:
         )
         return self._to_output(df, format_output=format_output)
 
-    # ----------------------- HELPERS COMMUNS ----------------------------
-
     @staticmethod
     def _build_params(**kwargs: Any) -> Dict[str, Any]:
         """Filtre les valeurs None des paramètres."""
         return {k: v for k, v in kwargs.items() if v is not None}
+
+    def _validate_location_params(
+        self,
+        code_insee: Optional[str] = None,
+        codes_insee: Optional[List[str]] = None,
+        coddep: Optional[str] = None,
+        in_bbox: Optional[List[float]] = None,
+        lon_lat: Optional[List[float]] = None,
+        contains_lon_lat: Optional[List[float]] = None,
+        max_bbox_size: float = 1.0,
+        max_codes: int = 10,
+    ) -> tuple[Optional[str], Optional[List[float]], Optional[str]]:
+        """
+        Valide et normalise les paramètres de localisation (mutuel entre endpoints).
+        """
+        # Vérification qu'au moins un paramètre de localisation est fourni
+        location_params = [
+            code_insee,
+            codes_insee,
+            coddep,
+            in_bbox,
+            lon_lat,
+            contains_lon_lat,
+        ]
+        if not any(param is not None for param in location_params):
+            raise ValidationError(
+                "Au moins un paramètre de localisation est requis: "
+                "code_insee, codes_insee, coddep, in_bbox, lon_lat ou contains_lon_lat"
+            )
+
+        # Validation codes_insee
+        checked_codes_insee = None
+        if codes_insee:
+            if len(codes_insee) > max_codes:
+                raise ValidationError(f"Maximum {max_codes} codes INSEE autorisés")
+            for code in codes_insee:
+                validate_code_insee(code)
+            checked_codes_insee = ",".join(codes_insee)
+        elif code_insee:
+            validate_code_insee(code_insee)
+            checked_codes_insee = code_insee
+
+        # Gestion des paramètres géographiques
+        bbox_result = None
+        contains_geom = None
+
+        if contains_lon_lat:
+            if len(contains_lon_lat) != 2:
+                raise ValidationError(
+                    "contains_lon_lat doit contenir exactement 2 valeurs"
+                )
+            try:
+                lon, lat = contains_lon_lat
+                bbox_result = [lon - 0.01, lat - 0.01, lon + 0.01, lat + 0.01]
+                contains_geom = f"{{'type':'Point','coordinates':[{lon},{lat}]}}"
+            except ValueError:
+                raise ValidationError("Coordonnées invalides dans contains_lon_lat")
+
+        elif in_bbox:
+            validate_bbox(in_bbox)
+            lon_min, lat_min, lon_max, lat_max = in_bbox
+            if (lon_max - lon_min) > max_bbox_size or (
+                lat_max - lat_min
+            ) > max_bbox_size:
+                raise ValidationError(
+                    f"L'emprise ne doit pas excéder {max_bbox_size}° x {max_bbox_size}°"
+                )
+            bbox_result = in_bbox
+
+        elif lon_lat:
+            if len(lon_lat) != 2:
+                raise ValidationError("lon_lat doit contenir exactement 2 valeurs")
+            lon, lat = lon_lat
+            bbox_result = [lon - 0.01, lat - 0.01, lon + 0.01, lat + 0.01]
+
+        return checked_codes_insee, bbox_result, contains_geom

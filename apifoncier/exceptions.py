@@ -8,3 +8,9 @@ class AuthenticationError(ApiFoncierError):
     """Erreur d'authentification."""
 
     pass
+
+
+class ValidationError(ApiFoncierError):
+    """Erreur de validation des paramètres."""
+
+    pass

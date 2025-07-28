@@ -9,7 +9,7 @@ from urllib3.util import Retry
 from .config import Config
 from .exceptions import ApiFoncierError, AuthenticationError
 
-from .endpoints import BaseEndpoint
+from .endpoints import DVFOpenDataEndpoint, CartofrichesEndpoint
 
 
 class ApiFoncierClient:
@@ -28,7 +28,8 @@ class ApiFoncierClient:
         self.session = self._create_session()
         self.logger = logging.getLogger(__name__)
 
-        self.endpoint = BaseEndpoint(self)
+        self.dvf_opendata = DVFOpenDataEndpoint(self)
+        self.cartofriches = CartofrichesEndpoint(self)
 
     def _create_session(self) -> requests.Session:
         """Crée une session HTTP configurée."""
