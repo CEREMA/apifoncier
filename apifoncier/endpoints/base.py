@@ -5,7 +5,13 @@ from tqdm import tqdm
 import geopandas as gpd
 import pandas as pd
 
-from ..validators import validate_code_insee, validate_bbox
+from ..validators import (
+    validate_code_insee,
+    validate_coddep,
+    validate_bbox,
+    validate_contains_lon_lat,
+    validate_lon_lat_point,
+)
 from ..exceptions import ValidationError
 
 
@@ -247,37 +253,21 @@ class BaseEndpoint:
             validate_code_insee(code_insee)
             checked_codes_insee = code_insee
 
+        if coddep:
+            validate_coddep(coddep)
+
         # Gestion des paramètres géographiques
         bbox_result = None
         contains_geom = None
 
         if contains_lon_lat:
-            if len(contains_lon_lat) != 2:
-                raise ValidationError(
-                    "contains_lon_lat doit contenir exactement 2 valeurs"
-                )
-            try:
-                lon, lat = contains_lon_lat
-                bbox_result = [lon - 0.01, lat - 0.01, lon + 0.01, lat + 0.01]
-                contains_geom = f"{{'type':'Point','coordinates':[{lon},{lat}]}}"
-            except ValueError:
-                raise ValidationError("Coordonnées invalides dans contains_lon_lat")
+            bbox_result, contains_geom = validate_contains_lon_lat(contains_lon_lat)
 
         elif in_bbox:
-            validate_bbox(in_bbox)
-            lon_min, lat_min, lon_max, lat_max = in_bbox
-            if (lon_max - lon_min) > max_bbox_size or (
-                lat_max - lat_min
-            ) > max_bbox_size:
-                raise ValidationError(
-                    f"L'emprise ne doit pas excéder {max_bbox_size}° x {max_bbox_size}°"
-                )
+            validate_bbox(in_bbox, max_bbox_size)
             bbox_result = in_bbox
 
         elif lon_lat:
-            if len(lon_lat) != 2:
-                raise ValidationError("lon_lat doit contenir exactement 2 valeurs")
-            lon, lat = lon_lat
-            bbox_result = [lon - 0.01, lat - 0.01, lon + 0.01, lat + 0.01]
+            bbox_result = validate_lon_lat_point(lon_lat)
 
         return checked_codes_insee, bbox_result, contains_geom

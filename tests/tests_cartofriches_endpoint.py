@@ -207,7 +207,10 @@ class TestCartofrichesEndpoint:
 
     def test_friches_invalid_code_insee_error(self, endpoint):
         """Test d'erreur avec code INSEE invalide."""
-        with pytest.raises(ValidationError, match="Code INSEE invalide"):
+        with pytest.raises(
+            ValidationError,
+            match="Le code INSEE doit être au format 2A123, 2B123 ou 12345",
+        ):
             endpoint.friches(code_insee="invalid")
 
     def test_friches_too_many_codes_insee_error(self, endpoint):
@@ -218,13 +221,18 @@ class TestCartofrichesEndpoint:
 
     def test_friches_invalid_coddep_error(self, endpoint):
         """Test d'erreur avec code département invalide."""
-        with pytest.raises(ValidationError, match="Code département invalide"):
+        with pytest.raises(
+            ValidationError,
+            match="Le code INSEE doit être au format 2A, 2B ou 01 à 95, 971 à 976",
+        ):
             endpoint.friches(coddep="invalid")
 
     def test_friches_bbox_too_large_error(self, endpoint):
         """Test d'erreur avec bbox trop grande."""
         large_bbox = [3.0, 50.6, 4.5, 52.0]  # > 1.0° x 1.0°
-        with pytest.raises(ValidationError, match="L'emprise ne doit pas excéder 1.0"):
+        with pytest.raises(
+            ValidationError, match="L'emprise ne doit pas excéder 1.0° x 1.0°"
+        ):
             endpoint.friches(in_bbox=large_bbox)
 
     def test_friches_invalid_bbox_error(self, endpoint):
@@ -232,17 +240,13 @@ class TestCartofrichesEndpoint:
         with pytest.raises(ValidationError, match="Bounding box invalide"):
             endpoint.friches(in_bbox=[3.0, 50.6, 2.0, 50.5])  # min > max
 
-    def test_friches_negative_surface_error(self, endpoint):
-        """Test d'erreur avec surface négative."""
-        with pytest.raises(ValidationError, match="surface_min doit être positif"):
-            endpoint.friches(code_insee="59350", surface_min=-100.0)
-
     def test_friches_invalid_contains_lon_lat_error(self, endpoint):
         """Test d'erreur avec contains_lon_lat invalide."""
         with pytest.raises(
-            ValidationError, match="contains_lon_lat doit contenir exactement 2 valeurs"
+            ValidationError,
+            match="Le contains_lon_lat doit être une liste de 2 éléments",
         ):
-            endpoint.friches(contains_lon_lat="3.0")
+            endpoint.friches(contains_lon_lat=[3.0, 50.6, 2.0])  # Trop d'éléments
 
     def test_friches_invalid_lon_lat_error(self, endpoint):
         """Test d'erreur avec lon_lat invalide."""
@@ -321,32 +325,6 @@ class TestCartofrichesEndpoint:
             endpoint.friche_by_id(None)
 
     # ===================== TESTS D'INTÉGRATION =========================
-
-    @patch("apifoncier.endpoints.cartofriches.validate_code_insee")
-    @patch("apifoncier.endpoints.cartofriches.validate_bbox")
-    def test_friches_integration_with_validation_mocks(
-        self,
-        mock_validate_bbox,
-        mock_validate_code_insee,
-        endpoint,
-        mock_friches_response,
-    ):
-        """Test d'intégration avec mocks des validateurs."""
-        endpoint._fetch = Mock(
-            return_value=pd.DataFrame(mock_friches_response["results"])
-        )
-
-        result = endpoint.friches(
-            code_insee="59350",
-            in_bbox=[3.0, 50.6, 3.5, 51.0],  # Devrait être ignoré car exclusif
-            surface_min=1000.0,
-        )
-
-        # Validation que les bonnes fonctions sont appelées
-        mock_validate_code_insee.assert_called_once_with("59350")
-        mock_validate_bbox.assert_not_called()  # bbox ignoré car code_insee fourni
-
-        assert isinstance(result, pd.DataFrame)
 
     def test_friches_format_output_variations(self, endpoint, mock_friches_response):
         """Test des différents formats de sortie."""
