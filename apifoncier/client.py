@@ -9,7 +9,12 @@ from urllib3.util import Retry
 from .config import Config
 from .exceptions import ApiFoncierError, AuthenticationError
 
-from .endpoints import DVFOpenDataEndpoint, CartofrichesEndpoint
+from .endpoints import (
+    DVFOpenDataEndpoint,
+    CartofrichesEndpoint,
+    DV3FEndpoint,
+    FFEndpoint,
+)
 
 
 class ApiFoncierClient:
@@ -28,7 +33,10 @@ class ApiFoncierClient:
         self.session = self._create_session()
         self.logger = logging.getLogger(__name__)
 
+        # Endpoints
         self.dvf_opendata = DVFOpenDataEndpoint(self)
+        self.dv3f = DV3FEndpoint(self)
+        self.ff = FFEndpoint(self)
         self.cartofriches = CartofrichesEndpoint(self)
 
     def _create_session(self) -> requests.Session:

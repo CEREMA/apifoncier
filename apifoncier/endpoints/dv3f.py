@@ -2,12 +2,12 @@ from typing import Optional, List, Union
 import pandas as pd
 import geopandas as gpd
 
+from ..exceptions import ValidationError
 from .base import BaseEndpoint
 
 
-class DVFOpenDataEndpoint(BaseEndpoint):
-    def __init__(self, client):
-        super().__init__(client)
+class DV3FEndpoint(BaseEndpoint):
+    """Endpoints DV3F (accès restreint): mutations + geomutations + mutation par id."""
 
     def mutations(
         self,
@@ -15,13 +15,17 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         codes_insee: Optional[List[str]] = None,
         in_bbox: Optional[List[float]] = None,
         lon_lat: Optional[List[float]] = None,
+        contains_lon_lat: Optional[List[float]] = None,
         anneemut: Optional[str] = None,
         anneemut_min: Optional[str] = None,
         anneemut_max: Optional[str] = None,
         codtypbien: Optional[str] = None,
         idnatmut: Optional[str] = None,
         vefa: Optional[str] = None,
-        contains_lon_lat: Optional[List[float]] = None,
+        codtypproa: Optional[str] = None,
+        codtypprov: Optional[str] = None,
+        filtre: Optional[str] = None,
+        segmtab: Optional[str] = None,
         sbati_min: Optional[float] = None,
         sbati_max: Optional[float] = None,
         sterr_min: Optional[float] = None,
@@ -35,11 +39,6 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         paginate: bool = True,
         format_output: str = "dataframe",
     ) -> Union[pd.DataFrame, List[dict]]:
-        """
-        Retourne les mutations issues de DVF+ pour la commune ou l'emprise rectangulaire demandée.
-        """
-
-        # Validation des paramètres de localisation avec mutualisation
         checked_codes_insee, bbox_result, auto_contains_geom = (
             self._validate_location_params(
                 code_insee=code_insee,
@@ -52,18 +51,20 @@ class DVFOpenDataEndpoint(BaseEndpoint):
                 max_codes=10,
             )
         )
-
-        # Construction des paramètres
         params = self._build_params(
             code_insee=checked_codes_insee,
             in_bbox=",".join(map(str, bbox_result)) if bbox_result else None,
+            contains_geom=auto_contains_geom,
             anneemut=anneemut,
             anneemut_min=anneemut_min,
             anneemut_max=anneemut_max,
-            contains_geom=auto_contains_geom,
             codtypbien=codtypbien,
             idnatmut=idnatmut,
             vefa=vefa,
+            codtypproa=codtypproa,
+            codtypprov=codtypprov,
+            filtre=filtre,
+            segmtab=segmtab,
             sbati_min=sbati_min,
             sbati_max=sbati_max,
             sterr_min=sterr_min,
@@ -75,9 +76,8 @@ class DVFOpenDataEndpoint(BaseEndpoint):
             page=page,
             page_size=page_size,
         )
-
         return self._fetch(
-            endpoint="/dvf_opendata/mutations",
+            endpoint="/dv3f/mutations",
             params=params,
             format_output=format_output,
             geo=False,
@@ -90,13 +90,17 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         codes_insee: Optional[List[str]] = None,
         in_bbox: Optional[List[float]] = None,
         lon_lat: Optional[List[float]] = None,
+        contains_lon_lat: Optional[List[float]] = None,
         anneemut: Optional[str] = None,
         anneemut_min: Optional[str] = None,
         anneemut_max: Optional[str] = None,
         codtypbien: Optional[str] = None,
         idnatmut: Optional[str] = None,
         vefa: Optional[str] = None,
-        contains_lon_lat: Optional[List[float]] = None,
+        codtypproa: Optional[str] = None,
+        codtypprov: Optional[str] = None,
+        filtre: Optional[str] = None,
+        segmtab: Optional[str] = None,
         sbati_min: Optional[float] = None,
         sbati_max: Optional[float] = None,
         sterr_min: Optional[float] = None,
@@ -104,17 +108,11 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         valeurfonc_min: Optional[float] = None,
         valeurfonc_max: Optional[float] = None,
         fields: Optional[str] = None,
-        ordering: Optional[str] = None,
         page: Optional[int] = None,
         page_size: Optional[int] = 500,
         paginate: bool = True,
         format_output: str = "dataframe",
-    ) -> Union[gpd.GeoDataFrame, List[dict]]:
-        """
-        Retourne les mutations issues de DVF+ pour la commune ou l'emprise rectangulaire demandée.
-        """
-
-        # Validation des paramètres de localisation avec mutualisation
+    ) -> gpd.GeoDataFrame:
         checked_codes_insee, bbox_result, auto_contains_geom = (
             self._validate_location_params(
                 code_insee=code_insee,
@@ -127,18 +125,20 @@ class DVFOpenDataEndpoint(BaseEndpoint):
                 max_codes=10,
             )
         )
-
-        # Construction des paramètres
         params = self._build_params(
             code_insee=checked_codes_insee,
             in_bbox=",".join(map(str, bbox_result)) if bbox_result else None,
+            contains_geom=auto_contains_geom,
             anneemut=anneemut,
             anneemut_min=anneemut_min,
             anneemut_max=anneemut_max,
-            contains_geom=auto_contains_geom,
             codtypbien=codtypbien,
             idnatmut=idnatmut,
             vefa=vefa,
+            codtypproa=codtypproa,
+            codtypprov=codtypprov,
+            filtre=filtre,
+            segmtab=segmtab,
             sbati_min=sbati_min,
             sbati_max=sbati_max,
             sterr_min=sterr_min,
@@ -146,15 +146,28 @@ class DVFOpenDataEndpoint(BaseEndpoint):
             valeurfonc_min=valeurfonc_min,
             valeurfonc_max=valeurfonc_max,
             fields=fields,
-            ordering=ordering,
             page=page,
             page_size=page_size,
         )
-
         return self._fetch(
-            endpoint="/dvf_opendata/geomutations",
+            endpoint="/dv3f/geomutations",
             params=params,
             format_output=format_output,
             geo=True,
             paginate=paginate,
+        )
+
+    def mutation_by_id(
+        self,
+        idmutation: int,
+        format_output: str = "dict",
+    ) -> Union[dict, List[dict]]:
+        if idmutation is None:
+            raise ValidationError("idmutation est obligatoire")
+        return self._fetch(
+            endpoint=f"/dv3f/mutations/{idmutation}",
+            params={},
+            format_output=format_output,
+            geo=False,
+            paginate=False,
         )

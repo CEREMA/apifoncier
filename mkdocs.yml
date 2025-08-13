@@ -1,4 +1,47 @@
-site_name: APIFoncier Documentation
+site_name: API Données foncières - Documentation du client Python
+site_description: Documentation du client Python pour l'API Données foncières du Cerema
+site_author: Cerema
+site_url: https://datafoncier.cerema.fr
+
 
 theme:
-  name: "material"
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - mkdocs-jupyter:
+        include: ["*.ipynb"]
+        include_requirejs: true
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [apifoncier, apifoncier.endpoints]
+
+nav:
+  - Accueil: index.md
+  - Exemples: 
+    - Friches: cartofriches.ipynb
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html

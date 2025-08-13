@@ -1,12 +1,13 @@
 [project]
 name = "apifoncier2"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utiliser l'API Données foncières du Cerema en python"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "geopandas>=1.1.1",
     "mkdocs>=1.6.1",
+    "mkdocs-jupyter>=0.25.1",
     "mkdocs-material>=9.6.16",
     "mkdocstrings[python]>=0.30.0",
     "pandas>=2.3.1",
@@ -28,8 +29,11 @@ Homepage = "https://github.com/aherman59/apifoncier"
 [build-system]
 requires      = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
+packages = ["apifoncier"]
 
 [dependency-groups]
 dev = [
+    "folium>=0.20.0",
+    "plotly>=6.2.0",
     "pytest>=8.4.1",
 ]
