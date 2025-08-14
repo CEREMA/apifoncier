@@ -1,13 +1,30 @@
-# Bienvenue dans la documentation d'APIFoncier
+# API Données foncières — Client Python
 
-## Introduction
+Bienvenue dans la documentation officielle du client Python pour l'API Données foncières du Cerema.
 
-APIFoncier est un module Python qui facilite l'accès aux données foncières. 
+Ce client permet d'interroger facilement les différents jeux de données foncières :
+- Mutations immobilières (DVF+, DV3F)
+- Fichiers fonciers (parcelles, locaux, TUPs, propriétaires)
+- Friches (Cartofriches)
+- Indicateurs territoriaux
 
-## Installation
+## Structure de la documentation
 
-Pour installer APIFoncier, utilisez pip :
+- **Quickstart** : comment installer le package et l'utiliser
+- **Endpoints** : documentation des endpoints, ouverts et à accès restreint, disponibles
+- **Galerie** : notebooks avec des exemples d’usage
 
-```bash
-pip install apifoncier2
-```
+## Accès restreint
+
+Certains endpoints nécessitent une clé API Cerema disponible via le Portail Données foncières.
+
+Pour en obtenir une : [https://portaildf.cerema.fr](https://portaildf.cerema.fr)
+
+## Support
+
+Pour toute question ou retour : [Contact Cerema](mailto:datafoncier@cerema.fr)
+
+
+
+
+

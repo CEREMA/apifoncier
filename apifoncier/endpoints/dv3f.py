@@ -7,7 +7,11 @@ from .base import BaseEndpoint
 
 
 class DV3FEndpoint(BaseEndpoint):
-    """Endpoints DV3F (accès restreint): mutations + geomutations + mutation par id."""
+    """
+    Endpoints DV3F (accès restreint): mutations, geomutations et mutation par id.
+
+    Permet d'interroger les mutations foncières et leurs géométries via l'API DV3F.
+    """
 
     def mutations(
         self,
@@ -39,6 +43,41 @@ class DV3FEndpoint(BaseEndpoint):
         paginate: bool = True,
         format_output: str = "dataframe",
     ) -> Union[pd.DataFrame, List[dict]]:
+        """
+        Retourne les mutations issues de DV3F pour la commune ou l'emprise rectangulaire demandée.
+
+        Args:
+            code_insee (str, optionnel): Code INSEE communal ou d'arrondissement municipal (max 10, séparés par virgule).
+            codes_insee (List[str], optionnel): Liste de codes INSEE.
+            in_bbox (List[float], optionnel): [xmin, ymin, xmax, ymax], max 0.02° x 0.02°.
+            lon_lat (List[float], optionnel): Coordonnées [lon, lat].
+            contains_lon_lat (List[float], optionnel): Coordonnées à contenir [lon, lat].
+            anneemut (str, optionnel): Année de mutation (>=2010).
+            anneemut_min (str, optionnel): Année minimale.
+            anneemut_max (str, optionnel): Année maximale.
+            codtypbien (str, optionnel): Typologie de bien (séparés par virgule).
+            idnatmut (str, optionnel): Nature de mutation (séparés par virgule).
+            vefa (str, optionnel): Vente en l'état futur d'achèvement.
+            codtypproa (str, optionnel): Typologie acheteur (séparés par virgule).
+            codtypprov (str, optionnel): Typologie vendeur (séparés par virgule).
+            filtre (str, optionnel): Code pour exclure des transactions particulières.
+            segmtab (str, optionnel): Note de segment terrain à bâtir.
+            sbati_min (float, optionnel): Surface bâtie minimale.
+            sbati_max (float, optionnel): Surface bâtie maximale.
+            sterr_min (float, optionnel): Surface terrain minimale.
+            sterr_max (float, optionnel): Surface terrain maximale.
+            valeurfonc_min (float, optionnel): Valeur foncière minimale (€).
+            valeurfonc_max (float, optionnel): Valeur foncière maximale (€).
+            fields (str, optionnel): 'all' pour obtenir tous les champs, None sinon.
+            ordering (str, optionnel): Champ de tri.
+            page (int, optionnel): Page de résultats.
+            page_size (int, optionnel): Nombre de résultats par page.
+            paginate (bool, optionnel): Pagination automatique.
+            format_output (str, optionnel): 'dataframe' ou 'dict'.
+
+        Returns:
+            DataFrame ou liste de dictionnaires des mutations.
+        """
         checked_codes_insee, bbox_result, auto_contains_geom = (
             self._validate_location_params(
                 code_insee=code_insee,
@@ -113,6 +152,40 @@ class DV3FEndpoint(BaseEndpoint):
         paginate: bool = True,
         format_output: str = "dataframe",
     ) -> gpd.GeoDataFrame:
+        """
+        Retourne, en GeoJSON, les mutations issues de DV3F pour la commune ou l'emprise rectangulaire demandée.
+
+        Args:
+            code_insee (str, optionnel): Code INSEE communal ou d'arrondissement municipal (max 10, séparés par virgule).
+            codes_insee (List[str], optionnel): Liste de codes INSEE.
+            in_bbox (List[float], optionnel): [xmin, ymin, xmax, ymax], max 0.02° x 0.02°.
+            lon_lat (List[float], optionnel): Coordonnées [lon, lat].
+            contains_lon_lat (List[float], optionnel): Coordonnées à contenir [lon, lat].
+            anneemut (str, optionnel): Année de mutation (>=2010).
+            anneemut_min (str, optionnel): Année minimale.
+            anneemut_max (str, optionnel): Année maximale.
+            codtypbien (str, optionnel): Typologie de bien (séparés par virgule).
+            idnatmut (str, optionnel): Nature de mutation (séparés par virgule).
+            vefa (str, optionnel): Vente en l'état futur d'achèvement.
+            codtypproa (str, optionnel): Typologie acheteur (séparés par virgule).
+            codtypprov (str, optionnel): Typologie vendeur (séparés par virgule).
+            filtre (str, optionnel): Code pour exclure des transactions particulières.
+            segmtab (str, optionnel): Note de segment terrain à bâtir.
+            sbati_min (float, optionnel): Surface bâtie minimale.
+            sbati_max (float, optionnel): Surface bâtie maximale.
+            sterr_min (float, optionnel): Surface terrain minimale.
+            sterr_max (float, optionnel): Surface terrain maximale.
+            valeurfonc_min (float, optionnel): Valeur foncière minimale (€).
+            valeurfonc_max (float, optionnel): Valeur foncière maximale (€).
+            fields (str, optionnel): 'all' pour obtenir tous les champs, None sinon.
+            page (int, optionnel): Page de résultats.
+            page_size (int, optionnel): Nombre de résultats par page.
+            paginate (bool, optionnel): Pagination automatique.
+            format_output (str, optionnel): 'dataframe' ou 'dict'.
+
+        Returns:
+            GeoDataFrame des mutations géolocalisées.
+        """
         checked_codes_insee, bbox_result, auto_contains_geom = (
             self._validate_location_params(
                 code_insee=code_insee,
@@ -162,6 +235,16 @@ class DV3FEndpoint(BaseEndpoint):
         idmutation: int,
         format_output: str = "dict",
     ) -> Union[dict, List[dict]]:
+        """
+        Retourne la mutation DV3F pour l'identifiant fiscal demandé.
+
+        Args:
+            idmutation (int, obligatoire): Identifiant fiscal de la mutation.
+            format_output (str, optionnel): 'dict'.
+
+        Returns:
+            Dictionnaire de la mutation.
+        """
         if idmutation is None:
             raise ValidationError("idmutation est obligatoire")
         return self._fetch(

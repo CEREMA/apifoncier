@@ -1,6 +1,6 @@
 [project]
 name = "apifoncier2"
-version = "0.1.1"
+version = "0.1.2"
 description = "Utiliser l'API Données foncières du Cerema en python"
 readme = "README.md"
 requires-python = ">=3.11"

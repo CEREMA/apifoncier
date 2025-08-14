@@ -14,6 +14,7 @@ from .endpoints import (
     CartofrichesEndpoint,
     DV3FEndpoint,
     FFEndpoint,
+    IndicateurEndpoint,
 )
 
 
@@ -38,6 +39,7 @@ class ApiFoncierClient:
         self.dv3f = DV3FEndpoint(self)
         self.ff = FFEndpoint(self)
         self.cartofriches = CartofrichesEndpoint(self)
+        self.indicateurs = IndicateurEndpoint(self)
 
     def _create_session(self) -> requests.Session:
         """Crée une session HTTP configurée."""

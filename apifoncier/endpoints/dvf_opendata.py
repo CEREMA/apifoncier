@@ -6,7 +6,19 @@ from .base import BaseEndpoint
 
 
 class DVFOpenDataEndpoint(BaseEndpoint):
+    """
+    Endpoints DVF Open Data : mutations et geomutations.
+
+    Permet d'interroger les mutations foncières DVF+ et leurs géométries via l'API Open Data.
+    """
+
     def __init__(self, client):
+        """
+        Initialise l'endpoint DVF Open Data.
+
+        Args:
+            client: Instance du client principal.
+        """
         super().__init__(client)
 
     def mutations(
@@ -15,13 +27,13 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         codes_insee: Optional[List[str]] = None,
         in_bbox: Optional[List[float]] = None,
         lon_lat: Optional[List[float]] = None,
+        contains_lon_lat: Optional[List[float]] = None,
         anneemut: Optional[str] = None,
         anneemut_min: Optional[str] = None,
         anneemut_max: Optional[str] = None,
         codtypbien: Optional[str] = None,
         idnatmut: Optional[str] = None,
         vefa: Optional[str] = None,
-        contains_lon_lat: Optional[List[float]] = None,
         sbati_min: Optional[float] = None,
         sbati_max: Optional[float] = None,
         sterr_min: Optional[float] = None,
@@ -37,6 +49,34 @@ class DVFOpenDataEndpoint(BaseEndpoint):
     ) -> Union[pd.DataFrame, List[dict]]:
         """
         Retourne les mutations issues de DVF+ pour la commune ou l'emprise rectangulaire demandée.
+
+        Args:
+            code_insee (str, optionnel): Code INSEE de la commune.
+            codes_insee (List[str], optionnel): Liste de codes INSEE.
+            in_bbox (List[float], optionnel): [min_lon, min_lat, max_lon, max_lat].
+            lon_lat (List[float], optionnel): [longitude, latitude].
+            contains_lon_lat (List[float], optionnel): [longitude, latitude] pour filtrer par point contenu dans l'emprise.
+            anneemut (str, optionnel): Année de la mutation au format YYYY.
+            anneemut_min (str, optionnel): Année de mutation minimale au format YYYY.
+            anneemut_max (str, optionnel): Année de mutation maximale au format YYYY.
+            codtypbien (str, optionnel): Code du type de bien.
+            idnatmut (str, optionnel): Identifiant national de la mutation.
+            vefa (str, optionnel): Statut VEFA (Vente en l'État Futur d'Achèvement).
+            sbati_min (float, optionnel): Superficie bâtie minimale.
+            sbati_max (float, optionnel): Superficie bâtie maximale.
+            sterr_min (float, optionnel): Superficie terrain minimale.
+            sterr_max (float, optionnel): Superficie terrain maximale.
+            valeurfonc_min (float, optionnel): Valeur foncière minimale.
+            valeurfonc_max (float, optionnel): Valeur foncière maximale.
+            fields (str, optionnel): 'all' pour obtenir tous les champs, None sinon.
+            ordering (str, optionnel): Critère de tri des résultats.
+            page (int, optionnel): Numéro de la page pour la pagination.
+            page_size (int, optionnel): Nombre de résultats par page.
+            paginate (bool, optionnel): Activer la pagination ou non.
+            format_output (str, optionnel): Format de sortie ('dataframe' ou 'dict').
+
+        Returns:
+            DataFrame ou liste de dictionnaires des mutations.
         """
 
         # Validation des paramètres de localisation avec mutualisation
@@ -90,13 +130,13 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         codes_insee: Optional[List[str]] = None,
         in_bbox: Optional[List[float]] = None,
         lon_lat: Optional[List[float]] = None,
+        contains_lon_lat: Optional[List[float]] = None,
         anneemut: Optional[str] = None,
         anneemut_min: Optional[str] = None,
         anneemut_max: Optional[str] = None,
         codtypbien: Optional[str] = None,
         idnatmut: Optional[str] = None,
         vefa: Optional[str] = None,
-        contains_lon_lat: Optional[List[float]] = None,
         sbati_min: Optional[float] = None,
         sbati_max: Optional[float] = None,
         sterr_min: Optional[float] = None,
@@ -111,7 +151,35 @@ class DVFOpenDataEndpoint(BaseEndpoint):
         format_output: str = "dataframe",
     ) -> Union[gpd.GeoDataFrame, List[dict]]:
         """
-        Retourne les mutations issues de DVF+ pour la commune ou l'emprise rectangulaire demandée.
+        Retourne, en GeoJSON, les mutations issues de DVF+ pour la commune ou l'emprise rectangulaire demandée.
+
+        Args:
+            code_insee (str, optionnel): Code INSEE de la commune.
+            codes_insee (List[str], optionnel): Liste de codes INSEE.
+            in_bbox (List[float], optionnel): [min_lon, min_lat, max_lon, max_lat].
+            lon_lat (List[float], optionnel): [longitude, latitude].
+            contains_lon_lat (List[float], optionnel): [longitude, latitude] pour filtrer par point contenu dans l'emprise.
+            anneemut (str, optionnel): Année de la mutation au format YYYY.
+            anneemut_min (str, optionnel): Année de mutation minimale au format YYYY.
+            anneemut_max (str, optionnel): Année de mutation maximale au format YYYY.
+            codtypbien (str, optionnel): Code du type de bien.
+            idnatmut (str, optionnel): Identifiant national de la mutation.
+            vefa (str, optionnel): Statut VEFA (Vente en l'État Futur d'Achèvement).
+            sbati_min (float, optionnel): Superficie bâtie minimale.
+            sbati_max (float, optionnel): Superficie bâtie maximale.
+            sterr_min (float, optionnel): Superficie terrain minimale.
+            sterr_max (float, optionnel): Superficie terrain maximale.
+            valeurfonc_min (float, optionnel): Valeur foncière minimale.
+            valeurfonc_max (float, optionnel): Valeur foncière maximale.
+            fields (str, optionnel): 'all' pour obtenir tous les champs, None sinon.
+            ordering (str, optionnel): Critère de tri des résultats.
+            page (int, optionnel): Numéro de la page pour la pagination.
+            page_size (int, optionnel): Nombre de résultats par page.
+            paginate (bool, optionnel): Activer la pagination ou non.
+            format_output (str, optionnel): Format de sortie ('dataframe' ou 'dict').
+
+        Returns:
+            GeoDataFrame ou liste de dictionnaires des mutations géolocalisées.
         """
 
         # Validation des paramètres de localisation avec mutualisation

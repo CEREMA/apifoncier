@@ -29,9 +29,19 @@ plugins:
           paths: [apifoncier, apifoncier.endpoints]
 
 nav:
-  - Accueil: index.md
+  - Quickstart: 
+    - Description: index.md
+    - Installation: installation.md
+    - Usage: usage.md
+  - Endpoints ouverts:
+    - DVF+ open-data: dvf_opendata.md
+    - Indicateurs: indicateurs.md
+    - Cartofriches: cartofriches.md
+  - Endpoints restreints:
+    - Fichiers fonciers: ff.md
+    - DV3F: dv3f.md
   - Exemples: 
-    - Friches: cartofriches.ipynb
+    - Utilisation de cartofriches: exemple_cartofriches.ipynb
 
 markdown_extensions:
   - pymdownx.highlight:

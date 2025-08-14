@@ -7,9 +7,19 @@ from .base import BaseEndpoint
 
 
 class CartofrichesEndpoint(BaseEndpoint):
-    """Endpoint pour les données Cartofriches avec support de la pagination."""
+    """
+    Endpoint pour les données Cartofriches avec support de la pagination.
+
+    Permet d'interroger les friches et leurs géométries via l'API Cartofriches.
+    """
 
     def __init__(self, client):
+        """
+        Initialise l'endpoint Cartofriches.
+
+        Args:
+            client: Instance du client principal.
+        """
         super().__init__(client)
 
     def friches(
@@ -31,8 +41,27 @@ class CartofrichesEndpoint(BaseEndpoint):
         format_output: str = "dataframe",
     ) -> Union[pd.DataFrame, List[dict]]:
         """
-        Retourne les friches issues de Cartofriches pour la commune, le département
-        ou l'emprise rectangulaire demandée.
+        Retourne les friches issues de Cartofriches pour la commune, le département ou l'emprise rectangulaire demandée.
+
+        Args:
+            code_insee (str, obligatoire): Code INSEE communal ou d'arrondissement municipal (max 10, séparés par virgule).
+            codes_insee (List[str], optionnel): Liste de codes INSEE.
+            coddep (str, obligatoire): Code INSEE départemental.
+            in_bbox (List[float], obligatoire): [xmin, ymin, xmax, ymax], max 1.0° x 1.0°.
+            lon_lat (List[float], optionnel): Coordonnées [lon, lat].
+            contains_lon_lat (List[float], optionnel): Coordonnées à contenir [lon, lat].
+            surface_min (float, optionnel): Surface minimale de l'unité foncière.
+            surface_max (float, optionnel): Surface maximale de l'unité foncière.
+            urba_zone_type (str, optionnel): Type de zone d'urbanisme.
+            fields (str, optionnel): 'all' pour obtenir tous les champs, None sinon.
+            ordering (str, optionnel): Champ de tri.
+            page (int, optionnel): Page de résultats.
+            page_size (int, optionnel): Nombre de résultats par page.
+            paginate (bool, optionnel): Pagination automatique.
+            format_output (str, optionnel): 'dataframe' ou 'dict'.
+
+        Returns:
+            DataFrame ou liste de dictionnaires des friches.
         """
         # Validation des paramètres de localisation avec mutualisation
         checked_codes_insee, bbox_result, auto_contains_geom = (
@@ -89,8 +118,26 @@ class CartofrichesEndpoint(BaseEndpoint):
         format_output: str = "dataframe",
     ) -> gpd.GeoDataFrame:
         """
-        Retourne, en GeoJSON, les friches issues de Cartofriches pour la commune,
-        le département ou l'emprise rectangulaire demandée.
+        Retourne, en GeoJSON, les friches issues de Cartofriches pour la commune, le département ou l'emprise rectangulaire demandée.
+
+        Args:
+            code_insee (str, obligatoire): Code INSEE communal ou d'arrondissement municipal (max 10, séparés par virgule).
+            codes_insee (List[str], optionnel): Liste de codes INSEE.
+            coddep (str, obligatoire): Code INSEE départemental.
+            in_bbox (List[float], obligatoire): [xmin, ymin, xmax, ymax], max 1.0° x 1.0°.
+            lon_lat (List[float], optionnel): Coordonnées [lon, lat].
+            contains_lon_lat (List[float], optionnel): Coordonnées à contenir [lon, lat].
+            surface_min (float, optionnel): Surface minimale de l'unité foncière.
+            surface_max (float, optionnel): Surface maximale de l'unité foncière.
+            urba_zone_type (str, optionnel): Type de zone d'urbanisme.
+            fields (str, optionnel): 'all' pour obtenir tous les champs, None sinon.
+            page (int, optionnel): Page de résultats.
+            page_size (int, optionnel): Nombre de résultats par page.
+            paginate (bool, optionnel): Pagination automatique.
+            format_output (str, optionnel): 'dataframe' ou 'dict'.
+
+        Returns:
+            GeoDataFrame des friches géolocalisées.
         """
         # Validation des paramètres (réutilisation du code)
         checked_codes_insee, bbox_result, auto_contains_geom = (
@@ -135,11 +182,11 @@ class CartofrichesEndpoint(BaseEndpoint):
         Retourne la friche pour l'identifiant de site demandé.
 
         Args:
-            site_id: Identifiant unique du site
-            format_output: Format de sortie ('dict' principalement)
+            site_id (str, obligatoire): Identifiant unique du site.
+            format_output (str, optionnel): 'dict'.
 
         Returns:
-            Détails de la friche
+            Détails de la friche.
         """
         if not site_id:
             raise ValidationError("site_id est obligatoire")
