@@ -30,18 +30,19 @@ plugins:
 
 nav:
   - Quickstart: 
-    - Description: index.md
-    - Installation: installation.md
-    - Usage: usage.md
+    - Description: quickstart/index.md
+    - Installation: quickstart/installation.md
+    - Usage: quickstart/usage.md
   - Endpoints ouverts:
-    - DVF+ open-data: dvf_opendata.md
-    - Indicateurs: indicateurs.md
-    - Cartofriches: cartofriches.md
+    - DVF+ open-data: endpoints/dvf_opendata.md
+    - Indicateurs: endpoints/indicateurs.md
+    - Cartofriches: endpoints/cartofriches.md
   - Endpoints restreints:
-    - Fichiers fonciers: ff.md
-    - DV3F: dv3f.md
-  - Exemples: 
-    - Utilisation de cartofriches: exemple_cartofriches.ipynb
+    - Fichiers fonciers: endpoints/ff.md
+    - DV3F: endpoints/dv3f.md
+  - Galerie:
+    - Présentation: examples/gallery.md
+    - Utilisation de cartofriches: examples/exemple_cartofriches.ipynb
 
 markdown_extensions:
   - pymdownx.highlight:

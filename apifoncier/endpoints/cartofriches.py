@@ -73,6 +73,7 @@ class CartofrichesEndpoint(BaseEndpoint):
                 lon_lat=lon_lat,
                 contains_lon_lat=contains_lon_lat,
                 max_bbox_size=1.0,  # Cartofriches autorise 1.0° vs 0.02° pour DVF
+                max_interval=0.5,  # Intervalle pour lon_lat
                 max_codes=10,
             )
         )
@@ -149,6 +150,7 @@ class CartofrichesEndpoint(BaseEndpoint):
                 lon_lat=lon_lat,
                 contains_lon_lat=contains_lon_lat,
                 max_bbox_size=1.0,
+                max_interval=0.5,  # Intervalle pour lon_lat
                 max_codes=10,
             )
         )

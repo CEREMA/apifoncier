@@ -110,7 +110,7 @@ def validate_contains_lon_lat(contains_lon_lat: str) -> Tuple[List[float], str]:
     return bbox, contains_geom
 
 
-def validate_lon_lat_point(lon_lat: List[float]) -> List[float]:
+def validate_lon_lat_point(lon_lat: List[float], interval: float = 0.01) -> List[float]:
     """
     Valide des coordonnées lon/lat et génère une bbox.
 
@@ -140,4 +140,4 @@ def validate_lon_lat_point(lon_lat: List[float]) -> List[float]:
     if not (-90 <= lat <= 90):
         raise ValidationError("Latitude doit être entre -90 et 90")
 
-    return [lon - 0.01, lat - 0.01, lon + 0.01, lat + 0.01]
+    return [lon - interval, lat - interval, lon + interval, lat + interval]

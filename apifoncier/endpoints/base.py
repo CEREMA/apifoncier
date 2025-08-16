@@ -221,6 +221,7 @@ class BaseEndpoint:
         lon_lat: Optional[List[float]] = None,
         contains_lon_lat: Optional[List[float]] = None,
         max_bbox_size: float = 1.0,
+        max_interval: float = 0.01,
         max_codes: int = 10,
     ) -> tuple[Optional[str], Optional[List[float]], Optional[str]]:
         """
@@ -268,6 +269,6 @@ class BaseEndpoint:
             bbox_result = in_bbox
 
         elif lon_lat:
-            bbox_result = validate_lon_lat_point(lon_lat)
+            bbox_result = validate_lon_lat_point(lon_lat, max_interval)
 
         return checked_codes_insee, bbox_result, contains_geom
