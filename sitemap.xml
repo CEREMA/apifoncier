@@ -2,10 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://datafoncier.cerema.fr/</loc>
-         <lastmod>2025-08-13</lastmod>
+         <lastmod>2025-08-16</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/cartofriches/</loc>
-         <lastmod>2025-08-13</lastmod>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/dv3f/</loc>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/dvf_opendata/</loc>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/exemple_cartofriches/</loc>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/ff/</loc>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/indicateurs/</loc>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/installation/</loc>
+         <lastmod>2025-08-16</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/usage/</loc>
+         <lastmod>2025-08-16</lastmod>
     </url>
 </urlset>
