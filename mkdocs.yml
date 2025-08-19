@@ -29,10 +29,11 @@ plugins:
           paths: [apifoncier, apifoncier.endpoints]
 
 nav:
+  - Description: index.md
   - Quickstart: 
-    - Description: quickstart/index.md
     - Installation: quickstart/installation.md
     - Usage: quickstart/usage.md
+    - Premiers exemples: quickstart/quickstart.ipynb
   - Endpoints ouverts:
     - DVF+ open-data: endpoints/dvf_opendata.md
     - Indicateurs: endpoints/indicateurs.md

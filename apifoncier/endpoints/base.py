@@ -175,7 +175,7 @@ class BaseEndpoint:
 
         if format_output == "dict":
             if isinstance(df, gpd.GeoDataFrame):
-                records = df.to_geo_dict("records")
+                records = df.to_geo_dict()
             else:
                 records = df.to_dict("records")
             return records

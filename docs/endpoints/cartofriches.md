@@ -35,7 +35,7 @@ Permet d'interroger les friches et leurs géométries.
   friches = client.cartofriches.friches(in_bbox=[2.76, 49.73, 3.75, 50.6])
   ```
 
-# Friches autour d'un point
+- Friches autour d'un point
 ```python
   # Requête pour les friches à proximité d'un point (emprise rectangulaire de 0.5° autour du point)
   client.cartofriches.friches(lon_lat=[2.8, 49.75])
@@ -65,7 +65,7 @@ Permet d'interroger les friches et leurs géométries.
 
 - Friches géolocalisées d'une commune :
   ```python
-  client.cartofriches.geofriches(code_insee="59001")
+  client.cartofriches.geofriches(code_insee="59350")
   ```
 - Friches géolocalisées d'un département :
   ```python
@@ -73,7 +73,7 @@ Permet d'interroger les friches et leurs géométries.
   ```
 - Friches géolocalisées avec filtre sur zone urbaine :
   ```python
-  client.cartofriches.geofriches(code_insee="59001", urba_zone_type="U")
+  client.cartofriches.geofriches(code_insee="59350", urba_zone_type="U")
   ```
 
 ---
@@ -88,5 +88,5 @@ Permet d'interroger les friches et leurs géométries.
 
 - Friche par identifiant :
   ```python
-  client.cartofriches.friche_by_id(site_id="FR123456")
+  client.cartofriches.friche_by_id(site_id="59350_991")
   ```

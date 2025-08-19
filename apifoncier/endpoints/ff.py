@@ -305,7 +305,7 @@ class FFEndpoint(BaseEndpoint):
         return self._fetch(
             endpoint="/ff/geoparcelles",
             params=params,
-            format_output="dataframe",  # Toujours dataframe pour GeoDataFrame
+            format_output=format_output,
             geo=True,
             paginate=paginate,
         )
@@ -682,7 +682,7 @@ class FFEndpoint(BaseEndpoint):
         return self._fetch(
             endpoint="/ff/geotups",
             params=params,
-            format_output="dataframe",  # Toujours dataframe pour GeoDataFrame
+            format_output=format_output,
             geo=True,
             paginate=paginate,
         )

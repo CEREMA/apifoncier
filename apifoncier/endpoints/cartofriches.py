@@ -172,7 +172,7 @@ class CartofrichesEndpoint(BaseEndpoint):
         return self._fetch(
             endpoint="/cartofriches/geofriches",
             params=params,
-            format_output="dataframe",  # Toujours dataframe pour GeoDataFrame
+            format_output=format_output,
             geo=True,
             paginate=paginate,
         )

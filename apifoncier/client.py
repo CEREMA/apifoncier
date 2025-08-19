@@ -128,7 +128,7 @@ class ApiFoncierClient:
         elif response.status_code >= 400:
             try:
                 error_data = response.json()
-                message = error_data.get("message", "Erreur inconnue")
+                message = error_data.get("detail", "Erreur inconnue")
             except:
                 message = f"Erreur HTTP {response.status_code}"
             raise ApiFoncierError(message)
