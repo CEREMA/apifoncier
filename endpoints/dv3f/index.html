@@ -71,7 +71,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="light-blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -127,7 +127,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
     
   
 </form>
@@ -719,6 +719,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#clef-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clef API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dv3fmutations" class="md-nav__link">
     <span class="md-ellipsis">
       📂 dv3f.mutations
@@ -1003,6 +1012,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#clef-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clef API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#dv3fmutations" class="md-nav__link">
     <span class="md-ellipsis">
       📂 dv3f.mutations
@@ -1164,6 +1182,13 @@
 
 <h1 id="dv3f-principaux-endpoints">DV3F - principaux endpoints</h1>
 <p>Permet d'interroger les mutations DV3F et leurs géométries.</p>
+<h2 id="clef-api">Clef API</h2>
+<p>Une clé API est requise pour accéder aux endpoints DV3F. Vous pouvez obtenir une clé via le <a href="https://portaildf.cerema.fr">Portail Données foncières</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">apifoncier.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApiFoncierClient</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;VOTRE_CLE_API&quot;</span>  <span class="c1"># Clé API requise pour accéder aux endpoints DV3F</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">client</span> <span class="o">=</span> <span class="n">ApiFoncierClient</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">})</span>
+</code></pre></div>
 <hr />
 <h2 id="dv3fmutations">📂 <code>dv3f.mutations</code></h2>
 <h3 id="description">Description</h3>
@@ -1874,19 +1899,34 @@
 
 </div><h3 id="exemples-dutilisation">Exemples d'utilisation</h3>
 <ul>
-<li>Mutations DV3F pour une commune :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
-</code></pre></div></li>
-<li>Mutations DV3F dans une emprise géographique :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
-</code></pre></div></li>
-<li>Mutations DV3F pour plusieurs communes :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">codes_insee</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="s2">&quot;62001&quot;</span><span class="p">])</span>
-</code></pre></div></li>
-<li>Mutations DV3F filtrées par année :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">anneemut</span><span class="o">=</span><span class="s2">&quot;2022&quot;</span><span class="p">)</span>
-</code></pre></div></li>
+<li>
+<p>Mutations DV3F pour une commune :
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Mutations DV3F dans une emprise géographique :
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Mutations DV3F pour plusieurs communes :
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span><span class="n">codes_insee</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="s2">&quot;62001&quot;</span><span class="p">])</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Mutations DV3F pour une commune donnée (ici, via le code INSEE 59350) en 2022, pour des biens de type maison ancienne(codtypbien=1113) et dont la surface est comprise entre 1000 et 5000 m2, en récupérant tous les champs disponibles :</p>
+</li>
 </ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dvf_opendata</span><span class="o">.</span><span class="n">mutations</span><span class="p">(</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59350&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">anneemut</span><span class="o">=</span><span class="s2">&quot;2022&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">fields</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">sterr_min</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">sterr_max</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">codtypbien</span><span class="o">=</span><span class="s2">&quot;1113&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">)</span>
+</code></pre></div>
 <hr />
 <h2 id="dv3fgeomutations">📂 <code>dv3f.geomutations</code></h2>
 <h3 id="description_1">Description</h3>
@@ -2576,13 +2616,13 @@
 </div><h3 id="exemples-dutilisation_1">Exemples d'utilisation</h3>
 <ul>
 <li>Mutations DV3F géolocalisées pour une commune :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">geomutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">geomutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>Mutations DV3F géolocalisées dans une emprise :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">geomutations</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">geomutations</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
 </code></pre></div></li>
 <li>Mutations DV3F géolocalisées filtrées par type de bien :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">geomutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">codtypbien</span><span class="o">=</span><span class="s2">&quot;MAISON&quot;</span><span class="p">)</span>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">geomutations</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">codtypbien</span><span class="o">=</span><span class="s2">&quot;1113&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -2726,7 +2766,7 @@
 </div><h3 id="exemples-dutilisation_2">Exemples d'utilisation</h3>
 <ul>
 <li>Mutation DV3F par identifiant :
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutation_by_id</span><span class="p">(</span><span class="n">idmutation</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">client</span><span class="o">.</span><span class="n">dv3f</span><span class="o">.</span><span class="n">mutation_by_id</span><span class="p">(</span><span class="n">idmutation</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 

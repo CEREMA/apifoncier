@@ -71,7 +71,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="light-blue">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -127,7 +127,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="light-blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
     
   
 </form>
@@ -694,6 +694,15 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#clef-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clef API
+    </span>
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#ffparcelles" class="md-nav__link">
@@ -1339,6 +1348,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#clef-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clef API
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ffparcelles" class="md-nav__link">
     <span class="md-ellipsis">
       📂 ff.parcelles
@@ -1836,6 +1854,13 @@
 
 <h1 id="fichiers-fonciers-principaux-endpoints">Fichiers Fonciers - principaux endpoints</h1>
 <p>Permet d'interroger les parcelles, locaux, TUPs, droits de propriété et leurs géométries.</p>
+<h2 id="clef-api">Clef API</h2>
+<p>Une clé API est requise pour accéder aux endpoints FF. Vous pouvez obtenir une clé via le <a href="https://portaildf.cerema.fr">Portail Données foncières</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">apifoncier.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">ApiFoncierClient</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">api_key</span> <span class="o">=</span> <span class="s2">&quot;VOTRE_CLE_API&quot;</span>  <span class="c1"># Clé API requise pour accéder aux endpoints FF</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">client</span> <span class="o">=</span> <span class="n">ApiFoncierClient</span><span class="p">({</span><span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">api_key</span><span class="p">})</span>
+</code></pre></div>
 <hr />
 <h2 id="ffparcelles">📂 <code>ff.parcelles</code></h2>
 <h3 id="description">Description</h3>
@@ -2687,17 +2712,24 @@
 </div><h3 id="exemples-dutilisation">Exemples d'utilisation</h3>
 <ul>
 <li>Parcelles d'une commune :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>Parcelles dans une emprise géographique :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
 </code></pre></div></li>
-<li>Parcelles avec plusieurs codes INSEE :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">codes_insee</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="s2">&quot;67890&quot;</span><span class="p">])</span>
+<li>Parcelles avec plusieurs codes INSEE et une surface minimale de 1000 m² :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">codes_insee</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="s2">&quot;59002&quot;</span><span class="p">],</span> <span class="n">dcntpa_min</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 </code></pre></div></li>
-<li>Parcelles avec filtre sur la surface :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">dcntpa_min</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-</code></pre></div></li>
+<li>
+<p>Parcelles avec filtre centrée sur une coordonnée (lon, lat) :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">lon_lat</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">])</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>Parcelles appartenant à des propriétaires personnes physiques (catpro3="X"), avec au moins un local (nlocal_min=1) et construites après 2010 (jannatmin_min=2010) dans la commune dont le code insee est 59001 :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">nlocal_min</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">jannatmin_min</span><span class="o">=</span><span class="mi">2010</span><span class="p">)</span>
+</code></pre></div></p>
+</li>
 </ul>
 <hr />
 <h2 id="ffparcelle_by_id">📂 <code>ff.parcelle_by_id</code></h2>
@@ -2840,7 +2872,7 @@
 </div><h3 id="exemples-dutilisation_1">Exemples d'utilisation</h3>
 <ul>
 <li>Parcelle par identifiant :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelle_by_id</span><span class="p">(</span><span class="n">idparcelle</span><span class="o">=</span><span class="s2">&quot;123456789A&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">parcelle_by_id</span><span class="p">(</span><span class="s2">&quot;590010000U1186&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -3661,7 +3693,7 @@
 <a id="__codelineno-0-305" name="__codelineno-0-305"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span>
 <a id="__codelineno-0-306" name="__codelineno-0-306"></a>        <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/ff/geoparcelles&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-307" name="__codelineno-0-307"></a>        <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-<a id="__codelineno-0-308" name="__codelineno-0-308"></a>        <span class="n">format_output</span><span class="o">=</span><span class="s2">&quot;dataframe&quot;</span><span class="p">,</span>  <span class="c1"># Toujours dataframe pour GeoDataFrame</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a>        <span class="n">format_output</span><span class="o">=</span><span class="n">format_output</span><span class="p">,</span>
 <a id="__codelineno-0-309" name="__codelineno-0-309"></a>        <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <a id="__codelineno-0-310" name="__codelineno-0-310"></a>        <span class="n">paginate</span><span class="o">=</span><span class="n">paginate</span><span class="p">,</span>
 <a id="__codelineno-0-311" name="__codelineno-0-311"></a>    <span class="p">)</span>
@@ -3672,13 +3704,13 @@
 </div><h3 id="exemples-dutilisation_2">Exemples d'utilisation</h3>
 <ul>
 <li>Parcelles géolocalisées d'une commune :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geoparcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geoparcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>Parcelles géolocalisées dans une emprise :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geoparcelles</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geoparcelles</span><span class="p">(</span><span class="n">in_bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">])</span>
 </code></pre></div></li>
-<li>Parcelles géolocalisées avec filtre propriétaire :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geoparcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+<li>Parcelles géolocalisées avec un propriétaire public :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geoparcelles</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -4204,13 +4236,10 @@
 </div><h3 id="exemples-dutilisation_3">Exemples d'utilisation</h3>
 <ul>
 <li>Locaux d'une commune :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">locaux</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">locaux</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
-<li>Locaux avec filtre sur type de local :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">locaux</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">dteloc</span><span class="o">=</span><span class="s2">&quot;MAISON,APPARTEMENT&quot;</span><span class="p">)</span>
-</code></pre></div></li>
-<li>Locaux avec surface minimale :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">locaux</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">slocal_min</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<li>Locaux de type "appartement" (dteloc="2") dans la commune de Lille (59350) avec une surface minimale de 180 m² :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">locaux</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59350&quot;</span><span class="p">,</span> <span class="n">dteloc</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="p">,</span> <span class="n">slocal_min</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -4358,7 +4387,7 @@
 </div><h3 id="exemples-dutilisation_4">Exemples d'utilisation</h3>
 <ul>
 <li>Local par identifiant :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">local_by_id</span><span class="p">(</span><span class="n">idlocal</span><span class="o">=</span><span class="s2">&quot;987654321&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">local_by_id</span><span class="p">(</span><span class="n">idlocal</span><span class="o">=</span><span class="s2">&quot;592980433303&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -4786,13 +4815,13 @@
 </div><h3 id="exemples-dutilisation_5">Exemples d'utilisation</h3>
 <ul>
 <li>TUPs d'une commune :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
-<li>TUPs avec filtre sur type :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">typetup</span><span class="o">=</span><span class="s2">&quot;SIMPLE&quot;</span><span class="p">)</span>
+<li>TUPs de type "unité foncière" (typetup="UF") appartenant à des propriétaires publics (catpro3="P") :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">typetup</span><span class="o">=</span><span class="s2">&quot;UF&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>TUPs avec plusieurs identifiants :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tups</span><span class="p">(</span><span class="n">idtup</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;TUP123456&quot;</span><span class="p">,</span> <span class="s2">&quot;TUP654321&quot;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tups</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="mf">2.76</span><span class="p">,</span> <span class="mf">49.73</span><span class="p">,</span> <span class="mf">2.779</span><span class="p">,</span> <span class="mf">49.749</span><span class="p">],</span> <span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -4936,7 +4965,7 @@
 </div><h3 id="exemples-dutilisation_6">Exemples d'utilisation</h3>
 <ul>
 <li>TUP par identifiant :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tup_by_id</span><span class="p">(</span><span class="n">idtup</span><span class="o">=</span><span class="s2">&quot;TUP123456&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">tup_by_id</span><span class="p">(</span><span class="s2">&quot;uf590010396107&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -5339,7 +5368,7 @@
 <a id="__codelineno-0-682" name="__codelineno-0-682"></a>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch</span><span class="p">(</span>
 <a id="__codelineno-0-683" name="__codelineno-0-683"></a>        <span class="n">endpoint</span><span class="o">=</span><span class="s2">&quot;/ff/geotups&quot;</span><span class="p">,</span>
 <a id="__codelineno-0-684" name="__codelineno-0-684"></a>        <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-<a id="__codelineno-0-685" name="__codelineno-0-685"></a>        <span class="n">format_output</span><span class="o">=</span><span class="s2">&quot;dataframe&quot;</span><span class="p">,</span>  <span class="c1"># Toujours dataframe pour GeoDataFrame</span>
+<a id="__codelineno-0-685" name="__codelineno-0-685"></a>        <span class="n">format_output</span><span class="o">=</span><span class="n">format_output</span><span class="p">,</span>
 <a id="__codelineno-0-686" name="__codelineno-0-686"></a>        <span class="n">geo</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <a id="__codelineno-0-687" name="__codelineno-0-687"></a>        <span class="n">paginate</span><span class="o">=</span><span class="n">paginate</span><span class="p">,</span>
 <a id="__codelineno-0-688" name="__codelineno-0-688"></a>    <span class="p">)</span>
@@ -5350,10 +5379,10 @@
 </div><h3 id="exemples-dutilisation_7">Exemples d'utilisation</h3>
 <ul>
 <li>TUPs géolocalisées d'une commune :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geotups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geotups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 <li>TUPs géolocalisées avec filtre propriétaire :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geotups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">geotups</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -5759,13 +5788,13 @@
 </div><h3 id="exemples-dutilisation_8">Exemples d'utilisation</h3>
 <ul>
 <li>Droits de propriété d'une commune :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprios</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprios</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">)</span>
 </code></pre></div></li>
-<li>Droits de propriété avec filtre sur catégorie :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprios</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
+<li>Droits de propriété avec filtre sur catégorie publique :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprios</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">catpro3</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">)</span>
 </code></pre></div></li>
-<li>Droits de propriété avec type de droit :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprios</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">typedroit</span><span class="o">=</span><span class="s2">&quot;propriétaire&quot;</span><span class="p">)</span>
+<li>Droits de propriété avec droit de propriété de type GERANT,MANDATAIRE (ccodro) :
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprios</span><span class="p">(</span><span class="n">code_insee</span><span class="o">=</span><span class="s2">&quot;59001&quot;</span><span class="p">,</span> <span class="n">ccodro</span><span class="o">=</span><span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 <hr />
@@ -5909,7 +5938,7 @@
 </div><h3 id="exemples-dutilisation_9">Exemples d'utilisation</h3>
 <ul>
 <li>Droit de propriété par identifiant :
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprio_by_id</span><span class="p">(</span><span class="n">idprodroit</span><span class="o">=</span><span class="s2">&quot;PRO123456&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">client</span><span class="o">.</span><span class="n">ff</span><span class="o">.</span><span class="n">proprio_by_id</span><span class="p">(</span><span class="n">idprodroit</span><span class="o">=</span><span class="s2">&quot;59001D0017702&quot;</span><span class="p">)</span>
 </code></pre></div></li>
 </ul>
 
