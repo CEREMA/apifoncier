@@ -2,6 +2,18 @@
 
 Permet d'interroger les parcelles, locaux, TUPs, droits de propriété et leurs géométries.
 
+
+## Clef API
+
+Une clé API est requise pour accéder aux endpoints FF. Vous pouvez obtenir une clé via le [Portail Données foncières](https://portaildf.cerema.fr).
+
+```python
+from apifoncier.client import ApiFoncierClient
+
+api_key = "VOTRE_CLE_API"  # Clé API requise pour accéder aux endpoints FF
+client = ApiFoncierClient({"api_key": api_key})
+```
+
 ---
 
 ## 📂 `ff.parcelles`
@@ -20,13 +32,18 @@ client.ff.parcelles(code_insee="59001")
 ```python
 client.ff.parcelles(in_bbox=[2.76, 49.73, 2.779, 49.749])
 ```
-- Parcelles avec plusieurs codes INSEE :
+- Parcelles avec plusieurs codes INSEE et une surface minimale de 1000 m² :
 ```python
-client.ff.parcelles(codes_insee=["59001", "67890"])
+client.ff.parcelles(codes_insee=["59001", "59002"], dcntpa_min=1000)
 ```
-- Parcelles avec filtre sur la surface :
+- Parcelles avec filtre centrée sur une coordonnée (lon, lat) :
 ```python
-client.ff.parcelles(code_insee="59001", dcntpa_min=1000)
+client.ff.parcelles(lon_lat=[2.76, 49.73])
+```
+
+- Parcelles appartenant à des propriétaires personnes physiques (catpro3="X"), avec au moins un local (nlocal_min=1) et construites après 2010 (jannatmin_min=2010) dans la commune dont le code insee est 59001 :
+```python
+client.ff.parcelles(code_insee="59001", catpro3="X", nlocal_min=1, jannatmin_min=2010)
 ```
 
 ---
@@ -41,7 +58,7 @@ client.ff.parcelles(code_insee="59001", dcntpa_min=1000)
 
 - Parcelle par identifiant :
 ```python
-client.ff.parcelle_by_id(idparcelle="123456789A")
+client.ff.parcelle_by_id("590010000U1186")
 ```
 
 ---
@@ -62,7 +79,7 @@ client.ff.geoparcelles(code_insee="59001")
 ```python
 client.ff.geoparcelles(in_bbox=[2.76, 49.73, 2.779, 49.749])
 ```
-- Parcelles géolocalisées avec filtre propriétaire :
+- Parcelles géolocalisées avec un propriétaire public :
 ```python
 client.ff.geoparcelles(code_insee="59001", catpro3="P")
 ```
@@ -81,13 +98,9 @@ client.ff.geoparcelles(code_insee="59001", catpro3="P")
 ```python
 client.ff.locaux(code_insee="59001")
 ```
-- Locaux avec filtre sur type de local :
+- Locaux de type "appartement" (dteloc="2") dans la commune de Lille (59350) avec une surface minimale de 180 m² :
 ```python
-client.ff.locaux(code_insee="59001", dteloc="MAISON,APPARTEMENT")
-```
-- Locaux avec surface minimale :
-```python
-client.ff.locaux(code_insee="59001", slocal_min=50)
+client.ff.locaux(code_insee="59350", dteloc="2", slocal_min=180)
 ```
 
 ---
@@ -102,7 +115,7 @@ client.ff.locaux(code_insee="59001", slocal_min=50)
 
 - Local par identifiant :
 ```python
-client.ff.local_by_id(idlocal="987654321")
+client.ff.local_by_id(idlocal="592980433303")
 ```
 
 ---
@@ -119,13 +132,13 @@ client.ff.local_by_id(idlocal="987654321")
 ```python
 client.ff.tups(code_insee="59001")
 ```
-- TUPs avec filtre sur type :
+- TUPs de type "unité foncière" (typetup="UF") appartenant à des propriétaires publics (catpro3="P") :
 ```python
-client.ff.tups(code_insee="59001", typetup="SIMPLE")
+client.ff.tups(code_insee="59001", typetup="UF", catpro3="P")
 ```
 - TUPs avec plusieurs identifiants :
 ```python
-client.ff.tups(idtup=["TUP123456", "TUP654321"])
+client.ff.tups(bbox=[2.76, 49.73, 2.779, 49.749], )
 ```
 
 ---
@@ -140,7 +153,7 @@ client.ff.tups(idtup=["TUP123456", "TUP654321"])
 
 - TUP par identifiant :
 ```python
-client.ff.tup_by_id(idtup="TUP123456")
+client.ff.tup_by_id("uf590010396107")
 ```
 
 ---
@@ -176,13 +189,13 @@ client.ff.geotups(code_insee="59001", catpro3="P")
 ```python
 client.ff.proprios(code_insee="59001")
 ```
-- Droits de propriété avec filtre sur catégorie :
+- Droits de propriété avec filtre sur catégorie publique :
 ```python
 client.ff.proprios(code_insee="59001", catpro3="P")
 ```
-- Droits de propriété avec type de droit :
+- Droits de propriété avec droit de propriété de type GERANT,MANDATAIRE (ccodro) :
 ```python
-client.ff.proprios(code_insee="59001", typedroit="propriétaire")
+client.ff.proprios(code_insee="59001", ccodro="G", fields="all")
 ```
 
 ---
@@ -197,6 +210,6 @@ client.ff.proprios(code_insee="59001", typedroit="propriétaire")
 
 - Droit de propriété par identifiant :
 ```python
-client.ff.proprio_by_id(idprodroit="PRO123456")
+client.ff.proprio_by_id(idprodroit="59001D0017702")
 ```
 

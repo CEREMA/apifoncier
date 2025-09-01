@@ -8,7 +8,7 @@ theme:
   name: material
   palette:
     - scheme: default
-      primary: blue
+      primary: deep orange
       accent: light blue
   features:
     - navigation.tabs

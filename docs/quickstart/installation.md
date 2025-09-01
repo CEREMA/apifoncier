@@ -2,20 +2,20 @@
 
 ## Prérequis
 
-- Python ≥ 3.8 recommandé
+- Python ≥ 3.10 recommandé
 - pip
 
 ## Installation du package
 
 ```bash
-pip install apifoncier
+pip install apifoncier2
 ```
 
 ## Installation depuis le dépôt Git
 
 ```bash
-git clone https://github.com/cerema/apifoncier-python.git
-cd apifoncier-python
+git clone https://github.com/aherman59/apifoncier.git
+cd apifoncier
 pip install .
 ```
 
@@ -30,5 +30,5 @@ Les dépendances sont installées automatiquement avec le package.
 ## Mise à jour
 
 ```bash
-pip install --upgrade apifoncier
+pip install --upgrade apifoncier2
 ```

@@ -1,6 +1,7 @@
 # Indicateurs - principaux endpoints
 
-Permet d'interroger les indicateurs de consommation d'espace, d'accessibilité, d'activité, de prix et de valorisation.
+Permet d'interroger les indicateurs de consommation d'espace ainsi que les indicateurs de marché : accessibilité, activité, prix et valorisation.
+
 
 ---
 
@@ -41,15 +42,15 @@ Permet d'interroger les indicateurs de consommation d'espace, d'accessibilité, 
 
 - Accessibilité pour une AAV :
   ```python
-  client.indicateurs.accessibilite(codes_aav="AAV123")
+  client.indicateurs.accessibilite(codes_aav="001")
   ```
 - Accessibilité pour plusieurs AAV :
   ```python
-  client.indicateurs.accessibilite(codes_aav=["AAV123", "AAV456"])
+  client.indicateurs.accessibilite(codes_aav=["004", "005"])
   ```
 - Accessibilité pour une année donnée :
   ```python
-  client.indicateurs.accessibilite(codes_aav="AAV123", annee="2021")
+  client.indicateurs.accessibilite(codes_aav="004", annee="2021")
   ```
 
 ---
@@ -68,11 +69,11 @@ Permet d'interroger les indicateurs de consommation d'espace, d'accessibilité, 
   ```
 - Activité pour un EPCI :
   ```python
-  client.indicateurs.activite(codes="200066010", echelle="epci")
+  client.indicateurs.activite(codes="243500139", echelle="epci")
   ```
 - Activité pour plusieurs codes :
   ```python
-  client.indicateurs.activite(codes=["59001", "67890"], echelle="communes")
+  client.indicateurs.activite(codes=["59001", "59002"], echelle="communes")
   ```
 
 ---
@@ -95,7 +96,7 @@ Permet d'interroger les indicateurs de consommation d'espace, d'accessibilité, 
   ```
 - Prix avec tri et année :
   ```python
-  client.indicateurs.prix(codes="59001", echelle="communes", ordering="-annee", annee="2022")
+  client.indicateurs.prix(codes=["59350", "59009"], echelle="communes", ordering="-annee")
   ```
 
 ---
@@ -110,13 +111,13 @@ Permet d'interroger les indicateurs de consommation d'espace, d'accessibilité, 
 
 - Valorisation pour une AAV :
   ```python
-  client.indicateurs.valorisation(code="AAV123", echelle="aav")
+  client.indicateurs.valorisation(code="004", echelle="aav")
   ```
 - Valorisation pour un EPCI :
   ```python
-  client.indicateurs.valorisation(code="200066010", echelle="epci")
+  client.indicateurs.valorisation(code="243500139", echelle="epci")
   ```
 - Valorisation pour une année donnée :
   ```python
-  client.indicateurs.valorisation(code="AAV123", echelle="aav", annee="2021")
+  client.indicateurs.valorisation(code="005", echelle="aav", annee="2021")
   ```
