@@ -2,46 +2,58 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://datafoncier.cerema.fr/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/endpoints/cartofriches/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/endpoints/dv3f/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/endpoints/dvf_opendata/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/endpoints/ff/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/endpoints/indicateurs/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/examples/example_conso_enaf/</loc>
+         <lastmod>2025-09-02</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/examples/example_dvf_opendata/</loc>
+         <lastmod>2025-09-02</lastmod>
+    </url>
+    <url>
+         <loc>https://datafoncier.cerema.fr/examples/example_prix/</loc>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/examples/exemple_cartofriches/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/examples/gallery/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/quickstart/installation/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/quickstart/quickstart/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
     <url>
          <loc>https://datafoncier.cerema.fr/quickstart/usage/</loc>
-         <lastmod>2025-09-01</lastmod>
+         <lastmod>2025-09-02</lastmod>
     </url>
 </urlset>
