@@ -43,7 +43,10 @@ nav:
     - DV3F: endpoints/dv3f.md
   - Galerie:
     - Présentation: examples/gallery.md
-    - Utilisation de cartofriches: examples/exemple_cartofriches.ipynb
+    - Exemples sur les friches: examples/exemple_cartofriches.ipynb
+    - Exemples sur la consommation d'espace: examples/example_conso_enaf.ipynb
+    - Exemples sur les indicateurs de marché : examples/example_prix.ipynb
+    - Exemples sur DVF+ open-data: examples/example_dvf_opendata.ipynb    
 
 markdown_extensions:
   - pymdownx.highlight:
