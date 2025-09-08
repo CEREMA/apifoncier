@@ -20,7 +20,7 @@ classifiers = [
 keywords = ["api", "datafoncier", "foncier"]
 
 [project.urls]
-Homepage = "https://github.com/aherman59/apifoncier"
+Homepage = "https://cerema.github.io/apifoncier/"
 
 [build-system]
 requires      = ["setuptools>=61.0.0", "wheel"]
