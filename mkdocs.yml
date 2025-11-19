@@ -5,7 +5,27 @@ site_url: https://datafoncier.cerema.fr
 
 
 theme:
-  name: material
+  name: dsfr
+  locale: fr
+  # Configuration par défaut (modifiable)
+  afficher_bouton_editer: true
+  afficher_date_de_revision: false
+  afficher_menu_lateral: true
+  afficher_sommaire: false
+  bouton_hautdepage: left
+  include_search_page: true
+  intitule: "République <br> française"
+  libelle_bouton_editer: Éditer dans Gitlab Forge
+  header:
+    titre: "API Données foncières"
+    sous_titre: "Documentation du client Python"
+  footer:
+    description: "Ce site est une documentation technique du client Python pour l'API Données foncières du Cerema. Pour toute question, contactez-nous à l'adresse <a href='mailto:datafoncier@cerema.fr'>datafoncier@cerema.fr</a>."
+    links:
+      - name: cerema.fr
+        url: https://www.cerema.fr
+      - name: datafoncier.cerema.fr
+        url: https://datafoncier.cerema.fr
   palette:
     - scheme: default
       primary: deep orange
@@ -49,8 +69,10 @@ nav:
     - Exemples sur DVF+ open-data: examples/example_dvf_opendata.ipynb    
 
 markdown_extensions:
+  - dsfr_structure.extension.all_extensions
   - pymdownx.highlight:
       anchor_linenums: true
+      use_pygments: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
@@ -59,4 +81,6 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
+  - def_list
+  - tables
   - md_in_html
